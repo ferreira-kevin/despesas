@@ -1,6 +1,7 @@
+import { Options } from "sequelize";
 require('dotenv').config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' });
 
-module.exports = {
+export default {
   username: process.env.USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -12,4 +13,5 @@ module.exports = {
     underscored: true,
     underscoredAll: true
   }
-};
+} as Options;
+  
