@@ -1,8 +1,8 @@
-import { Despesa } from "../../domain/despesa";
+import DespesaModel from "../../infrastructure/database/models/despesaModel";
 
 export interface IDespesaRepository {
-    criar(despesa: Despesa): Promise<void>;
-    atualizar(despesa: Despesa): Promise<void>;
+    criar(despesa: DespesaModel): Promise<void>;
+    atualizar(despesa: DespesaModel): Promise<void>;
     deletar(id: string): Promise<void>;
-    buscarPorId(id: string): Promise<void>;
+    buscarPorId(id: string): Promise<DespesaModel>;
 }

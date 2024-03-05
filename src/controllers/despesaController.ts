@@ -6,18 +6,46 @@ export class DespesaController {
 	}
 
 	async cadastrarDespesa(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			this._despesaService.cadastrarDespesa({ idUsuario: request.headers.idUsuario, ...request.body });
+			return response.status(201).send();
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 
 	async atualizarDespesa(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			this._despesaService.atualizarDespesa({ idUsuario: request.headers.idUsuario, ...request.body });
+			return response.status(201).send();
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 
 	async obterDespesa(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			this._despesaService.obterDespesa(request.query.id as string);
+			return response.status(201).send();
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 
 	async excluirDespesa(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			this._despesaService.excluirDespesa(request.query.id as string);
+			return response.status(201).send();
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 }

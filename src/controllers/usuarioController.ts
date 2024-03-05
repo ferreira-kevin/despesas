@@ -6,14 +6,35 @@ export class UsuarioController {
 	}
 
 	async cadastrarUsuario(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			await this._usuarioService.cadastrarUsuario(request.body);
+			return response.status(201).send();
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 
 	async excluirCadastroUsuario(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			await this._usuarioService.excluirUsuario(request.query.id as string);
+			return response.status(201).send();
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 
 	async entrarUsuario(request: Request, response: Response): Promise<Response> {
-		throw new Error("Method not implemented.");
+		try {
+			const token = await this._usuarioService.entrarUsuario(request.body);
+			return response.status(201).json({ token: token });
+		} catch (error) {
+			return response.status(401).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
 	}
 }

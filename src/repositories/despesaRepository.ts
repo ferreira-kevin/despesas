@@ -1,15 +1,31 @@
-import { Usuario } from "../domain/usuario";
-import { IUsuarioRepository } from "./interfaces/IUsuarioRepository";
+import DespesaModel from "../infrastructure/database/models/despesaModel";
+import { IDespesaRepository } from "./interfaces/IDespesaRepository";
 
-export class UsuarioRepository implements IUsuarioRepository {
-    criar(usuario: Usuario): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    deletar(usuario: Usuario): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    buscarPorEmail(email: string): Promise<void> {
-        throw new Error("Method not implemented.");
+export class DespesaRepository implements IDespesaRepository{
+    constructor() {
     }
 
+    async criar(despesa: DespesaModel): Promise<void> {
+        await DespesaModel.create({
+            id: despesa.id,
+            idUsuario: despesa.idUsuario,
+            descricao: despesa.descricao,
+            data: despesa.data,
+            valor: despesa.valor,
+            criadoEm: despesa.criadoEm,
+            alteradoEm: despesa.alteradoEm,
+        });
+    }
+
+    async atualizar(despesa: DespesaModel): Promise<void> {
+        await DespesaModel.update(despesa, {where: { id: despesa.id}});
+    }
+
+    async deletar(id: string): Promise<void> {
+        await DespesaModel.destroy({ where: { id }});;
+    }
+
+    async buscarPorId(id: string): Promise<DespesaModel> {
+        return await DespesaModel.findOne({ where: { id }});
+    }
 }
