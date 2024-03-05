@@ -13,9 +13,9 @@ export class DespesaService implements IDespesaService{
     }
 
     async cadastrarDespesa(despesaDto: DespesaDto): Promise<void> {
-        const usuario = await this._usuarioRepository.buscarPorEmail(despesaDto.idUsuario);
+        const usuario = await this._usuarioRepository.buscarPorId(despesaDto.idUsuario);
 
-        if (usuario) {
+        if (!usuario) {
             throw new Error("Usuário inexistente.");
         }
 

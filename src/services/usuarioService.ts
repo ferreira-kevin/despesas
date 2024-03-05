@@ -15,7 +15,8 @@ export class UsuarioService implements IUsuarioService {
         if (usuarioModel) {
             throw new Error("Usuário já cadastrado.");
         }
-
+        
+        usuarioModel = new UsuarioModel();
         usuarioModel.id = uuid();
         usuarioModel.nome = usuarioDto.nome;
         usuarioModel.email = usuarioDto.email;

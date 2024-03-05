@@ -29,8 +29,8 @@ export class DespesaController {
 
 	async obterDespesa(request: Request, response: Response): Promise<Response> {
 		try {
-			this._despesaService.obterDespesa(request.query.id as string);
-			return response.status(201).send();
+			const despesa = await this._despesaService.obterDespesa(request.params.id as string);
+			return response.status(200).json(despesa);
 		} catch (error) {
 			return response.status(400).json({
 				message: error.message || "Ocorreu um erro inesperado."
@@ -40,8 +40,8 @@ export class DespesaController {
 
 	async excluirDespesa(request: Request, response: Response): Promise<Response> {
 		try {
-			this._despesaService.excluirDespesa(request.query.id as string);
-			return response.status(201).send();
+			this._despesaService.excluirDespesa(request.params.id as string);
+			return response.status(204).send();
 		} catch (error) {
 			return response.status(400).json({
 				message: error.message || "Ocorreu um erro inesperado."

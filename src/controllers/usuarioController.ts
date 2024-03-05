@@ -8,7 +8,7 @@ export class UsuarioController {
 	async cadastrarUsuario(request: Request, response: Response): Promise<Response> {
 		try {
 			await this._usuarioService.cadastrarUsuario(request.body);
-			return response.status(200).send();
+			return response.status(201).send();
 		} catch (error) {
 			return response.status(400).json({
 				message: error.message || "Ocorreu um erro inesperado."

@@ -12,6 +12,7 @@ export default async function (req: Request, res: Response, next: NextFunction) 
 	try {
 		const decoded = await promisify(jwt.verify)(token, process.env.APP_SECRET);
 		req.headers.idUsuario = decoded.id;
+		
 		next();
 	} catch (error) {
 		return res.status(401).json({ message: "Token de autenticação inválido."})

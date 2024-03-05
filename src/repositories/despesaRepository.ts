@@ -11,9 +11,7 @@ export class DespesaRepository implements IDespesaRepository{
             idUsuario: despesa.idUsuario,
             descricao: despesa.descricao,
             data: despesa.data,
-            valor: despesa.valor,
-            criadoEm: despesa.criadoEm,
-            alteradoEm: despesa.alteradoEm,
+            valor: despesa.valor
         });
     }
 

@@ -1,9 +1,9 @@
 import { DespesaDto } from "../../controllers/dtos/despesaDto";
-import { Despesa } from "../../domain/despesa";
+import DespesaModel from "../../infrastructure/database/models/despesaModel";
 
 export interface IDespesaService {
     cadastrarDespesa(despesaDto: DespesaDto): Promise<void>;
     atualizarDespesa(despesaDto: DespesaDto): Promise<void>;
-    obterDespesa(idDespesa: string): Promise<Despesa> ;
+    obterDespesa(idDespesa: string): Promise<DespesaModel> ;
     excluirDespesa(idDespesa: string): Promise<void>;
 }
