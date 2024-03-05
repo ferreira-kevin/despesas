@@ -1,9 +1,9 @@
 import { DATE, FLOAT, Model, STRING } from 'sequelize';
 import db from '.';
 import sequelize from 'sequelize';
-import Usuario from './usuarioModel';
+import UsuarioModel from './usuarioModel';
 
-class Despesa extends Model {
+class DespesaModel extends Model {
   id!: string;
   idUsuario!: string;
   descricao!: string;
@@ -13,7 +13,7 @@ class Despesa extends Model {
   alteradoEm!: Date;
 }
 
-Despesa.init({
+DespesaModel.init({
   id: {
     type: sequelize.UUID,
     allowNull: false,
@@ -49,6 +49,6 @@ Despesa.init({
   underscored: true,
 });
 
-Despesa.belongsTo(Usuario, { foreignKey: 'idUsuario', as: 'usuario' });
+DespesaModel.belongsTo(UsuarioModel, { foreignKey: 'idUsuario', as: 'usuario' });
 
-export default Despesa;
+export default DespesaModel;

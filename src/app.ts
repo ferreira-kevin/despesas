@@ -1,6 +1,6 @@
 import express from 'express';
 import { router } from './routes';
-require('dotenv').config({ path: process.env.NODE_ENV === 'test' ? '/.env.test' : '/.env' });
+require('dotenv').config({ path: process.env.NODE_ENV == 'test' ? '.env.test' : '.env' });
 
 const app = express();
 
