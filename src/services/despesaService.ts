@@ -1,12 +1,11 @@
-import { plainToClass } from "class-transformer";
 import { DespesaDto } from "../controllers/dtos/despesaDto";
-import { Despesa } from "../domain/despesa";
 import { IEmailAgent } from "../infrastructure/agents/IEmailAgent";
 import { IDespesaRepository } from "../repositories/interfaces/IDespesaRepository";
 import { IDespesaService } from "./interfaces/IDespesaService";
 import DespesaModel from "../infrastructure/database/models/despesaModel";
 import { IUsuarioRepository } from "../repositories/interfaces/IUsuarioRepository";
 import { CorpoEmail } from "../utils/corpoEmail";
+import uuid from "../utils/uuid";
 
 export class DespesaService implements IDespesaService{
 
@@ -20,17 +19,16 @@ export class DespesaService implements IDespesaService{
             throw new Error("Usuário inexistente.");
         }
 
-        const despesa = new Despesa(
-            despesaDto.descricao,
-            despesaDto.data,
-            despesaDto.idUsuario,
-            despesaDto.valor);
+        const despesaModel = new DespesaModel();
+        despesaModel.id = uuid();
+        despesaModel.descricao = despesaDto.descricao;
+        despesaModel.data = despesaDto.data;
+        despesaModel.idUsuario = despesaDto.idUsuario;
+        despesaModel.valor = despesaDto.valor;
 
-        const despesaModel = plainToClass(DespesaModel, despesa);
+        await this._despesaRepository.criar(despesaModel);
 
-        this._despesaRepository.criar(despesaModel);
-
-        this._emailAgent.sendMail({
+        await this._emailAgent.sendMail({
             from: {
                 email: process.env.SERVER_MAIL,
                 name: process.env.SERVER_NAME
@@ -39,7 +37,7 @@ export class DespesaService implements IDespesaService{
                 email: usuario.email,
                 name: usuario.nome
             },
-            body: CorpoEmail.DespesaCadastrada(despesa, usuario.nome),
+            body: CorpoEmail.DespesaCadastrada(despesaModel, usuario.nome),
             subject: "despesa cadastrada"
         });
         
@@ -52,23 +50,21 @@ export class DespesaService implements IDespesaService{
             throw new Error("Despesa não encontrada.");
         }
 
-        const despesa = plainToClass(Despesa, despesaModel);
-
-        despesa.alterarDespesa(despesaDto.descricao, despesaDto.data, despesaDto.valor);
-
-        despesaModel = plainToClass(DespesaModel, despesa);
+        despesaModel.descricao = despesaDto.descricao;
+        despesaModel.data = despesaDto.data;
+        despesaModel.valor = despesaDto.valor;
 
         await this._despesaRepository.atualizar(despesaModel);
     }
 
-    async obterDespesa(idDespesa: string): Promise<Despesa> {
+    async obterDespesa(idDespesa: string): Promise<DespesaModel> {
         let despesaModel = await this._despesaRepository.buscarPorId(idDespesa);
 
         if (!despesaModel) {
             throw new Error("Despesa não encontrada.");
         }
 
-        return plainToClass(Despesa, despesaModel);
+        return despesaModel;
     }
 
     async excluirDespesa(idDespesa: string): Promise<void> {

@@ -7,9 +7,7 @@ export class UsuarioRepository implements IUsuarioRepository {
             id: usuarioModel.id,
             email: usuarioModel.email,
             passwordHash: usuarioModel.passwordHash,
-            nome: usuarioModel.nome,
-            criadoEm: usuarioModel.criadoEm,
-            alteradoEm: usuarioModel.alteradoEm
+            nome: usuarioModel.nome
         });
     }
 

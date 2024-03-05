@@ -1,9 +1,8 @@
-import { plainToClass } from "class-transformer";
 import { UsuarioDto } from "../controllers/dtos/usuarioDto";
-import { Usuario } from "../domain/usuario";
 import { IUsuarioRepository } from "../repositories/interfaces/IUsuarioRepository"
 import { IUsuarioService } from "./interfaces/IUsuarioService";
 import UsuarioModel from "../infrastructure/database/models/usuarioModel";
+import uuid from "../utils/uuid";
 
 export class UsuarioService implements IUsuarioService {
 
@@ -17,13 +16,10 @@ export class UsuarioService implements IUsuarioService {
             throw new Error("Usuário já cadastrado.");
         }
 
-        const usuario = new Usuario(
-            usuarioDto.nome,
-            usuarioDto.email,
-            await Usuario.encriptarPassword(usuarioDto.password)
-        );
-
-        usuarioModel = plainToClass(UsuarioModel, usuario);
+        usuarioModel.id = uuid();
+        usuarioModel.nome = usuarioDto.nome;
+        usuarioModel.email = usuarioDto.email;
+        usuarioModel.passwordHash = await UsuarioModel.encriptarPassword(usuarioDto.password);
 
         await this._usuarioRepository.criar(usuarioModel);
     }
@@ -35,10 +31,8 @@ export class UsuarioService implements IUsuarioService {
             throw new Error("Credenciais inválidas.");
         }
 
-        const usuario = plainToClass(Usuario, usuarioModel);
-        
-        if (usuario.checkPassword(usuarioDto.password)) {
-            return usuario.generateToken();
+        if (usuarioModel.checkPassword(usuarioDto.password)) {
+            return usuarioModel.generateToken();
         } else {
             throw new Error("Credenciais inválidas.");
         }

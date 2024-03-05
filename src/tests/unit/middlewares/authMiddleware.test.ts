@@ -1,6 +1,6 @@
-import { Usuario } from "../../../domain/usuario";
 import { NextFunction, Request, Response } from "express";
 import authMiddleware from "../../../middlewares/authMiddleware";
+import { Helpers } from "../../utils/helpers";
 
 describe('Autentication Middleware', () => {
 	const mockRequest = { headers: {}} as Request;
@@ -29,8 +29,8 @@ describe('Autentication Middleware', () => {
   });
 
   it('deve chamar o next() se o token for fornecido e for válido', async () => {
-		const usuario = new Usuario("Fulano", "fulano@gmail.com", await Usuario.encriptarPassword("fse5G%gedf9GFgsd2"));
-		const token = usuario.generateToken();
+		const token = await Helpers.gerarTokenValido("6d3143ab-390e-4c1f-9bd5-e6fc71b2d7f7");
+
     mockRequest.headers = { authorization: `Bearer ${token}` };
 
     await authMiddleware(mockRequest, mockResponse, mockNext);

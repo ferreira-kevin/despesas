@@ -1,7 +1,4 @@
 import { app } from "../../app";
-import Despesa from "../../infrastructure/database/models/despesaModel";
-import Usuario from "../../infrastructure/database/models/usuarioModel";
-import uuid from "../../utils/uuid";
 import request from "supertest";
 import truncate from "../utils/truncate";
 

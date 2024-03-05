@@ -29,12 +29,14 @@ module.exports = {
       criadoEm: {
         type: Sequelize.DATE,
         allowNull: false,
-        field: 'criado_em'
+        field: 'created_at',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       alteradoEm: {
         type: Sequelize.DATE,
         allowNull: false,
-        field: 'alterado_em'
+        field: 'updated_at',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },

@@ -1,6 +1,6 @@
 import { EmailAgent } from "../infrastructure/agents/emailAgent";
-import { UsuarioRepository } from "../repositories/despesaRepository";
-import { DespesaRepository } from "../repositories/usuarioRepository";
+import { DespesaRepository } from "../repositories/despesaRepository";
+import { UsuarioRepository } from "../repositories/usuarioRepository";
 import { DespesaService } from "../services/despesaService";
 import { UsuarioService } from "../services/usuarioService";
 import { DespesaController } from "./despesaController";
@@ -11,7 +11,7 @@ const emailAgent = new EmailAgent();
 const despesaRepository = new DespesaRepository();
 const usuarioRepository = new UsuarioRepository();
 
-const despesaService = new DespesaService(despesaRepository, emailAgent);
+const despesaService = new DespesaService(despesaRepository, usuarioRepository, emailAgent);
 const usuarioService = new UsuarioService(usuarioRepository);
 
 const despesaController = new DespesaController(despesaService);

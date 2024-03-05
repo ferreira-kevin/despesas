@@ -1,23 +1,21 @@
 import request from "supertest";
 import { app } from "../../../../app";
-import UsuarioModel from "../../../../infrastructure/database/models/usuarioModel";
-import { Usuario } from "../../../../domain/usuario";
+import { Helpers } from "../../../utils/helpers";
 
 var token: string;
 
-describe('Deve ', () => {
+describe('Validação Cadastro Usuário ', () => {
 	beforeAll(async () => {
 		jest.clearAllMocks();
 		process.env.APP_SECRET = 'test-secret-f47ac10b-58cc-4372-a567-0e02b2c3d479';
-		const usuario = new Usuario("Fulano", "fulano@gmail.com", await Usuario.encriptarPassword("fse5G%gedf9GFgsd2"));
-		token = await usuario.generateToken();
+		token = await Helpers.gerarTokenValido("6d3143ab-390e-4c1f-9bd5-e6fc71b2d7f7");
 	});
 
 	it("deve ter acesso negado por não passar um token válido", async () => {
 		const response = await request(app)
 		.delete("/usuarios")
 		.set("Authorization", `Bearer token_invalido`)
-		.send({ body: {} });
+		.send({});
 
 		expect(response.status).toBe(401);
 	});
@@ -26,7 +24,7 @@ describe('Deve ', () => {
 		const response = await request(app)
 		.post("/usuarios")
 		.set("Authorization", `Bearer ${token}`)
-		.send({ body: {} });
+		.send({});
 
 		expect(response.status).toBe(400);
 		expect(response.text).toContain("email");

@@ -9,8 +9,6 @@ class DespesaModel extends Model {
   descricao!: string;
   data!: Date;
   valor!: number;
-  criadoEm!: Date;
-  alteradoEm!: Date;
 }
 
 DespesaModel.init({
@@ -34,19 +32,12 @@ DespesaModel.init({
   valor: {
     type: FLOAT,
     allowNull: false,
-  },
-  criadoEm: {
-    type: DATE,
-    allowNull: false,
-  },
-  alteradoEm: {
-    type: DATE,
-    allowNull: false,
-  },
+  }
 }, {
   sequelize: db,
   modelName: 'despesas',
   underscored: true,
+  timestamps: true
 });
 
 DespesaModel.belongsTo(UsuarioModel, { foreignKey: 'idUsuario', as: 'usuario' });
