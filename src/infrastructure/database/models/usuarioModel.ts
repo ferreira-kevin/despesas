@@ -1,8 +1,6 @@
 import { DATE, Model, STRING } from 'sequelize';
 import db from '.';
 import sequelize from 'sequelize';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 class UsuarioModel extends Model {
   id!: string;
@@ -11,14 +9,6 @@ class UsuarioModel extends Model {
   nome!: string;
   criadoEm!: Date;
   alteradoEm!: Date;
-
-  checkPassword(password: string) {
-    return bcrypt.compare(password, this.passwordHash);
-  }
-
-  generateToken() {
-    return jwt.sign({ id: this.id }, process.env.APP_SECRET);
-  }
 }
 
 UsuarioModel.init({
