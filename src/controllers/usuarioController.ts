@@ -8,7 +8,7 @@ export class UsuarioController {
 	async cadastrarUsuario(request: Request, response: Response): Promise<Response> {
 		try {
 			await this._usuarioService.cadastrarUsuario(request.body);
-			return response.status(201).send();
+			return response.status(200).send();
 		} catch (error) {
 			return response.status(400).json({
 				message: error.message || "Ocorreu um erro inesperado."
@@ -19,7 +19,7 @@ export class UsuarioController {
 	async excluirCadastroUsuario(request: Request, response: Response): Promise<Response> {
 		try {
 			await this._usuarioService.excluirUsuario(request.query.id as string);
-			return response.status(201).send();
+			return response.status(204).send();
 		} catch (error) {
 			return response.status(400).json({
 				message: error.message || "Ocorreu um erro inesperado."
@@ -30,7 +30,7 @@ export class UsuarioController {
 	async entrarUsuario(request: Request, response: Response): Promise<Response> {
 		try {
 			const token = await this._usuarioService.entrarUsuario(request.body);
-			return response.status(201).json({ token: token });
+			return response.status(200).json({ token: token });
 		} catch (error) {
 			return response.status(401).json({
 				message: error.message || "Ocorreu um erro inesperado."
