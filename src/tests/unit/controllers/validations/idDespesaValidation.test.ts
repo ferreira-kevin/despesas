@@ -1,5 +1,4 @@
 import { validationResult } from 'express-validator';
-import DespesaModel from '../../../../infrastructure/database/models/despesaModel';
 import idDespesaValidation from '../../../../controllers/validations/idDespesaValidation';
 
 jest.mock('../../../../infrastructure/database/models/despesaModel', () => ({
@@ -8,7 +7,7 @@ jest.mock('../../../../infrastructure/database/models/despesaModel', () => ({
 
 describe('Validações de Despesa', () => {
     it('deve retornar erro se o ID não for informado', async () => {
-        const req = { query: { id: '' }, headers: { idUsuario: 'id_usuario' } };
+        const req = { param: { id: '' }, headers: { idUsuario: 'id_usuario' } };
         await Promise.all(idDespesaValidation.map(validation => validation.run(req)));
         const errors = validationResult(req);
 
@@ -16,7 +15,7 @@ describe('Validações de Despesa', () => {
     });
 
     it('deve retornar erro se o ID não for um UUID válido', async () => {
-        const req = { query: { id: 'id_invalido' } };
+        const req = { param: { id: 'id_invalido' }, Headers: { idUsuario: 'id_usuario' }  };
         await Promise.all(idDespesaValidation.map(validation => validation.run(req)));
         const errors = validationResult(req);
 
