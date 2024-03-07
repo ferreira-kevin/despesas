@@ -36,6 +36,11 @@ export class UsuarioController {
 	}
 
 	async excluirCadastroUsuario(request: Request, response: Response): Promise<Response> {
+		/*
+			#swagger.tags = ['Usuarios']
+			#swagger.summary = 'Excluir cadastro de usuário'
+			#swagger.description = 'Este endpoint irá excluir o cadastro de um usuário.'
+		*/
 		try {
 			await this._usuarioService.excluirUsuario(request.query.id as string);
 			return response.status(204).send();
@@ -47,6 +52,11 @@ export class UsuarioController {
 	}
 
 	async entrarUsuario(request: Request, response: Response): Promise<Response> {
+		/*
+			#swagger.tags = ['Usuarios']
+			#swagger.summary = 'Entrar no sistema'
+			#swagger.description = 'Este endpoint permite que um usuário entre no sistema, autenticando suas credenciais.'
+		*/
 		try {
 			const token = await this._usuarioService.entrarUsuario(request.body);
 			return response.status(200).json({ token: token });

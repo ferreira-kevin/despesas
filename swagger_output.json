@@ -42,7 +42,11 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Excluir cadastro de usuário",
+        "description": "Este endpoint irá excluir o cadastro de um usuário.",
         "parameters": [
           {
             "name": "authorization",
@@ -81,7 +85,11 @@
     },
     "/sessions": {
       "post": {
-        "description": "",
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Entrar no sistema",
+        "description": "Este endpoint permite que um usuário entre no sistema, autenticando suas credenciais.",
         "responses": {
           "200": {
             "description": "OK"
@@ -97,7 +105,11 @@
     },
     "/despesas/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Despesas"
+        ],
+        "summary": "Obter uma despesa",
+        "description": "Este endpoint permite obter os detalhes de uma despesa existente.",
         "parameters": [
           {
             "name": "id",
@@ -105,7 +117,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID da despesa a ser obtida."
           },
           {
             "name": "authorization",
@@ -124,10 +137,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Detalhes da despesa obtidos com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Despesa"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Despesa"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Erro ao obter os detalhes da despesa."
           },
           "401": {
             "description": "Unauthorized"
@@ -135,7 +160,11 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Despesas"
+        ],
+        "summary": "Atualizar uma despesa",
+        "description": "Este endpoint permite atualizar uma despesa existente.",
         "parameters": [
           {
             "name": "id",
@@ -158,14 +187,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Objeto contendo os dados atualizados da despesa.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Despesa"
+            }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Despesa atualizada com sucesso."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Erro ao atualizar a despesa."
           },
           "401": {
             "description": "Unauthorized"
@@ -173,7 +211,11 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Despesas"
+        ],
+        "summary": "Excluir uma despesa",
+        "description": "Este endpoint permite excluir uma despesa.",
         "parameters": [
           {
             "name": "id",
@@ -181,7 +223,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID da despesa a ser excluída."
           },
           {
             "name": "authorization",
@@ -200,10 +243,10 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "Despesa excluída com sucesso."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Erro ao excluir a despesa."
           },
           "401": {
             "description": "Unauthorized"
@@ -213,7 +256,11 @@
     },
     "/despesas": {
       "get": {
-        "description": "",
+        "tags": [
+          "Despesas"
+        ],
+        "summary": "Listar despesas",
+        "description": "Este endpoint permite listar todas as despesas do usuário.",
         "parameters": [
           {
             "name": "authorization",
@@ -225,6 +272,8 @@
           {
             "name": "idUsuario",
             "in": "header",
+            "description": "ID do usuário para o qual as despesas devem ser listadas.",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -232,10 +281,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Despesas listadas com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Despesa[]"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Despesa[]"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Erro ao listar as despesas."
           },
           "401": {
             "description": "Unauthorized"
@@ -243,7 +304,11 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Despesas"
+        ],
+        "summary": "Cadastrar uma nova despesa",
+        "description": "Este endpoint permite cadastrar uma nova despesa.",
         "parameters": [
           {
             "name": "authorization",
@@ -258,14 +323,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Objeto contendo os dados da despesa a ser cadastrada.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Despesa"
+            }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Despesa cadastrada com sucesso."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Erro ao cadastrar a despesa."
           },
           "401": {
             "description": "Unauthorized"
@@ -297,6 +371,9 @@
             "type": "string",
             "example": "Abc@1234"
           }
+        },
+        "xml": {
+          "name": "CadastrarUsuarioRequest"
         }
       },
       "CadastrarDespesaRequest": {
@@ -314,6 +391,9 @@
             "type": "number",
             "example": 199.99
           }
+        },
+        "xml": {
+          "name": "CadastrarDespesaRequest"
         }
       }
     }
