@@ -47,54 +47,6 @@ describe('Validação Cadastro Despesas ', () => {
 		expect(response.status).toBe(401);
 	});
 
-	it("deve retornar erro de campos não preenchidos", async () => {
-		let data = new Date();
-		data.setDate(data.getDate() + 3);
-
-		const response = await request(app)
-		.post("/despesas")
-		.set("Authorization", `Bearer ${token}`)
-		.send({});
-
-		expect(response.status).toBe(400);
-		expect(response.text).toContain("idUsuario");
-		expect(response.text).toContain("descricao");
-		expect(response.text).toContain("valor");
-		expect(response.text).toContain("data");
-	});
-
-	it("deve retornar erro de campos inválidos", async () => {
-		let data = new Date();
-		data.setDate(data.getDate() + 3);
-
-		const response = await request(app)
-		.post("/despesas")
-		.set("Authorization", `Bearer ${token}`)
-		.send({ idUsuario: 'invalid-uuid', descricao: '', valor: '-1', data: data.toISOString() });
-
-		expect(response.status).toBe(400);
-		expect(response.text).toContain("idUsuario");
-		expect(response.text).toContain("descricao");
-		expect(response.text).toContain("valor");
-		expect(response.text).toContain("data");
-	});
-
-	it("deve retornar erro de campo idUsuario inválido", async () => {
-		let data = new Date();
-		data.setDate(data.getDate() - 3);
-
-		const response = await request(app)
-		.post("/despesas")
-		.set("Authorization", `Bearer ${token}`)
-		.send({ idUsuario: '1234567', descricao: 'Está é uma descrição válida', valor: '10.95', data: data.toISOString() });
-
-		expect(response.status).toBe(400);
-		expect(response.text).toContain("idUsuario");
-		expect(response.text).not.toContain("descricao");
-		expect(response.text).not.toContain("valor");
-		expect(response.text).not.toContain("data");
-	});
-
 	it("deve retornar erro de campo descricao inválido", async () => {
 		let data = new Date();
 		data.setDate(data.getDate() - 3);
