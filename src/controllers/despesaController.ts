@@ -7,7 +7,7 @@ export class DespesaController {
 
 	async cadastrarDespesa(request: Request, response: Response): Promise<Response> {
 		try {
-			this._despesaService.cadastrarDespesa({ idUsuario: request.headers.idUsuario, ...request.body });
+			await this._despesaService.cadastrarDespesa({ idUsuario: request.headers.idUsuario, ...request.body });
 			return response.status(201).send();
 		} catch (error) {
 			return response.status(400).json({
@@ -18,7 +18,7 @@ export class DespesaController {
 
 	async atualizarDespesa(request: Request, response: Response): Promise<Response> {
 		try {
-			this._despesaService.atualizarDespesa({ idUsuario: request.headers.idUsuario, ...request.body });
+			await this._despesaService.atualizarDespesa({ idUsuario: request.headers.idUsuario, ...request.body });
 			return response.status(201).send();
 		} catch (error) {
 			return response.status(400).json({
@@ -51,7 +51,7 @@ export class DespesaController {
 
 	async excluirDespesa(request: Request, response: Response): Promise<Response> {
 		try {
-			this._despesaService.excluirDespesa(request.params.id as string);
+			await this._despesaService.excluirDespesa(request.params.id as string);
 			return response.status(204).send();
 		} catch (error) {
 			return response.status(400).json({

@@ -1,5 +1,5 @@
 export class DespesaDto {
-    public readonly id: string;
+    public id?: string;
     public descricao: string;
     public data: Date;
     public idUsuario: string;

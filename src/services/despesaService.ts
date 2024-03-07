@@ -4,8 +4,8 @@ import { IDespesaRepository } from "../repositories/interfaces/IDespesaRepositor
 import { IDespesaService } from "./interfaces/IDespesaService";
 import DespesaModel from "../infrastructure/database/models/despesaModel";
 import { IUsuarioRepository } from "../repositories/interfaces/IUsuarioRepository";
-import { CorpoEmail } from "../utils/corpoEmail";
-import uuid from "../utils/uuid";
+import { CorpoEmail } from "../shared/corpoEmail";
+import { Utils } from "../shared/utils";
 
 export class DespesaService implements IDespesaService{
 
@@ -20,7 +20,7 @@ export class DespesaService implements IDespesaService{
         }
 
         const despesaModel = new DespesaModel();
-        despesaModel.id = uuid();
+        despesaModel.id = Utils.uuid();
         despesaModel.descricao = despesaDto.descricao;
         despesaModel.data = despesaDto.data;
         despesaModel.idUsuario = despesaDto.idUsuario;

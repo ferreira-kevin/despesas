@@ -2,7 +2,7 @@ import { UsuarioDto } from "../controllers/dtos/usuarioDto";
 import { IUsuarioRepository } from "../repositories/interfaces/IUsuarioRepository"
 import { IUsuarioService } from "./interfaces/IUsuarioService";
 import UsuarioModel from "../infrastructure/database/models/usuarioModel";
-import uuid from "../utils/uuid";
+import { Utils } from "../shared/utils";
 
 export class UsuarioService implements IUsuarioService {
 
@@ -17,7 +17,7 @@ export class UsuarioService implements IUsuarioService {
         }
         
         usuarioModel = new UsuarioModel();
-        usuarioModel.id = uuid();
+        usuarioModel.id = Utils.uuid();
         usuarioModel.nome = usuarioDto.nome;
         usuarioModel.email = usuarioDto.email;
         usuarioModel.passwordHash = await UsuarioModel.encriptarPassword(usuarioDto.password);

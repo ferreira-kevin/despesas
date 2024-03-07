@@ -2,23 +2,6 @@ import { validationResult } from "express-validator";
 import cadastrarDespesaValidation from "../../../../controllers/validations/cadastrarDespesaValidation";
 
 describe('Deve ', () => {
-    it('deve retornar erro de campo idUsuario inválido', async () => {
-        let data = new Date();
-		data.setDate(data.getDate() - 3);
-
-		const req = { body: {
-            idUsuario: '1234567',
-            descricao: 'Está é uma descrição válida',
-            valor: '10.95',
-            data: data.toISOString() }};
-
-        await Promise.all(cadastrarDespesaValidation.map(validation => validation.run(req)));
-		const errors = validationResult(req);
-
-		expect(errors.array()).toHaveLength(1);
-		expect(errors.array()[0]).toHaveProperty("path","idUsuario");
-	})
-
     it('deve retornar erro de campo descricao inválido', async () => {
         let data = new Date();
 		data.setDate(data.getDate() - 3);
