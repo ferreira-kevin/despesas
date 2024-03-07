@@ -38,6 +38,17 @@ export class DespesaController {
 		}
 	}
 
+	async listarDespesas(request: Request, response: Response): Promise<Response> {
+		try {
+			const despesas = await this._despesaService.listarDespesas(request.headers.idUsuario as string);
+			return response.status(200).json(despesas);
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || "Ocorreu um erro inesperado."
+			});
+		}
+	}
+
 	async excluirDespesa(request: Request, response: Response): Promise<Response> {
 		try {
 			this._despesaService.excluirDespesa(request.params.id as string);

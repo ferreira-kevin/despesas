@@ -5,4 +5,5 @@ export interface IDespesaRepository {
     atualizar(despesa: DespesaModel): Promise<void>;
     deletar(id: string): Promise<void>;
     buscarPorId(id: string): Promise<DespesaModel>;
+    listarPorIdUsuario(idUsuario: string): Promise<DespesaModel[]>;
 }

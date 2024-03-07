@@ -26,4 +26,8 @@ export class DespesaRepository implements IDespesaRepository{
     async buscarPorId(id: string): Promise<DespesaModel> {
         return await DespesaModel.findOne({ where: { id }});
     }
+    
+    async listarPorIdUsuario(idUsuario: string): Promise<DespesaModel[]> {
+        return await DespesaModel.findAll({ where: { idUsuario }});
+    }
 }

@@ -67,6 +67,16 @@ export class DespesaService implements IDespesaService{
         return despesaModel;
     }
 
+    async listarDespesas(idUsuario: string): Promise<DespesaModel[]> {
+        let despesas = await this._despesaRepository.listarPorIdUsuario(idUsuario);
+
+        if (!despesas) {
+            throw new Error("Despesa não encontrada.");
+        }
+
+        return despesas;
+    }
+
     async excluirDespesa(idDespesa: string): Promise<void> {
         await this._despesaRepository.deletar(idDespesa);
     }
