@@ -1,13 +1,32 @@
 import { Request, Response } from "express";
 import { IUsuarioService } from "../services/interfaces/IUsuarioService";
+import { UsuarioDto } from "./dtos/usuarioDto";
 
 export class UsuarioController {
 	constructor(private _usuarioService: IUsuarioService) {
 	}
 
 	async cadastrarUsuario(request: Request, response: Response): Promise<Response> {
+		 /*
+            #swagger.tags = ['Usuarios']
+            #swagger.summary = 'Criar um novo usuário'
+            #swagger.description = 'Este endpoint irá criar um novo usuário.'
+        */
+		const cadastrarUsuarioRequest = request.body as UsuarioDto;
+		/*  
+			#swagger.requestBody = {
+				required: true,
+				content: {
+					"application/json": {
+						schema: {
+							$ref: "#/components/schemas/CadastrarUsuarioRequest"
+						}  
+					}
+				}
+			} 
+        */
 		try {
-			await this._usuarioService.cadastrarUsuario(request.body);
+			await this._usuarioService.cadastrarUsuario(cadastrarUsuarioRequest);
 			return response.status(201).send();
 		} catch (error) {
 			return response.status(400).json({

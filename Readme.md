@@ -39,29 +39,9 @@ npm start
 
 ## Rotas
 
-### Despesas
+Para interagir com a API deste projeto, consulte a documentação Swagger abaixo:
 
-- **GET /despesas**: Retorna todas as despesas.
-- **GET /despesas/:id**: Retorna uma despesa específica pelo ID.
-- **POST /despesas**: Cria uma nova despesa.
-  - Corpo da requisição:
-    ```json
-    {
-      "descricao": "Descrição da despesa",
-      "valor": 50.00,
-      "data": "2024-03-06"
-    }
-    ```
-- **PUT /despesas/:id**: Atualiza uma despesa existente pelo ID.
-  - Corpo da requisição (parâmetros opcionais):
-    ```json
-    {
-      "descricao": "Nova descrição da despesa",
-      "valor": 60.00,
-      "data": "2024-03-07"
-    }
-    ```
-- **DELETE /despesas/:id**: Exclui uma despesa pelo ID.
+- [Documentação da API](http://localhost:3000/api-docs)
 
 ## Modelos
 
