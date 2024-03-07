@@ -8,9 +8,9 @@
     "prestart": "npx ts-node swagger.ts",
     "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "test": "jest",
-    "test:migrate": "SET NODE_ENV=test sequelize-cli db:migrate",
-    "test:seed": "SET NODE_ENV=test sequelize-cli db:seed:all",
-    "test:undo-migrate": "SET NODE_ENV=test sequelize-cli db:migrate:undo:all"
+    "test:migrate": "SET NODE_ENV=test&& sequelize db:migrate",
+    "test:seed": "SET NODE_ENV=test&& sequelize db:seed:all",
+    "test:undo-migrate": "SET NODE_ENV=test&& sequelize db:migrate:undo:all"
   },
   "author": "Kevin Ferreira",
   "license": "ISC",

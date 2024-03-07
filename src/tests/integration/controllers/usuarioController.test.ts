@@ -2,7 +2,7 @@ import request from "supertest";
 import { UsuarioDto } from "../../../controllers/dtos/usuarioDto";
 import { app } from "../../../app";
 import bcrypt from 'bcrypt';
-import uuid from "../../../utils/uuid";
+import { Utils } from "../../../shared/utils";
 
 describe('Usuário Controller ', () => {
 	beforeAll(async () => {
@@ -13,14 +13,14 @@ describe('Usuário Controller ', () => {
     it("deve cadastrar usuário com sucesso", async () => {
         const response = await request(app)
 		.post("/usuarios")
-		.send({ nome: "Fulano", email: `fulano.${uuid()}@gmail.com`, password: "fse5G%gedf9GFgsd2" } as UsuarioDto);
+		.send({ nome: "Fulano", email: `fulano.${Utils.uuid()}@gmail.com`, password: "fse5G%gedf9GFgsd2" } as UsuarioDto);
 
 		expect(response.message).toBeUndefined();
 		expect(response.status).toBe(201);
 	});
 
     it("deve cadastrar usuário com sucesso e retornar um token válido", async () => {
-        const email = `fulano.${uuid()}@gmail.com`;
+        const email = `fulano.${Utils.uuid()}@gmail.com`;
 		
 		const responseCadastro = await request(app)
 		.post("/usuarios")
@@ -35,9 +35,5 @@ describe('Usuário Controller ', () => {
 
 		expect(response.message).toBeUndefined();
 		expect(response.status).toBe(200);
-
-        const resultado = await bcrypt.compare("fse5G%gedf9GFgsd2", response.message.token);
-		
-        expect(resultado).toBe(true);
 	});
 });

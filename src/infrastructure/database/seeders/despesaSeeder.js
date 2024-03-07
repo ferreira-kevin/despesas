@@ -7,7 +7,7 @@ module.exports = {
         descricao: 'Despesa 1',
         valor: 100.00,
         id_usuario: '6d3143ab-390e-4c1f-9bd5-e6fc71b2d7f7',
-        data: new Date(),
+        data: new Date('2024-03-07T16:10:19.668Z'),
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -16,7 +16,7 @@ module.exports = {
         descricao: 'Despesa 2',
         valor: 150.00,
         id_usuario: '6d3143ab-390e-4c1f-9bd5-e6fc71b2d7f7',
-        data: new Date(),
+        data: new Date('07/03/2024 11:21:45'),
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -25,7 +25,7 @@ module.exports = {
         descricao: 'Despesa 3',
         valor: 300.00,
         id_usuario: '6d3143ab-390e-4c1f-9bd5-e6fc71b2d7f7',
-        data: new Date(),
+        data: new Date('07/03/2024 11:22:45'),
         created_at: new Date(),
         updated_at: new Date()
       }
